@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     bool playerHasVerticalVelocity;
+    bool charLookingRight = true;
+    bool isAlive = true;
     float gravityScaleOnStart;
     Vector2 moveInput;
     Rigidbody2D playerRigidBody;
@@ -15,8 +17,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] float runSpeed = 5f;
-    [SerializeField] float jumpSpeed = 2f;
+    [SerializeField] float jumpForce = 2f;
     [SerializeField] float climbSpeed = 5f;
+    [SerializeField] Vector2 deadthKick;
 
     private void Awake()
     {
@@ -29,27 +32,43 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        Run();
-        FlipSprite();
-        Climbing();
+        if (isAlive)
+        {
+            Run();
+            Climbing();
+            Die();
+        }
     }
     void OnMove(InputValue value)
     {
-        moveInput = value.Get<Vector2>();
+        if (isAlive)
+        {
+            moveInput = value.Get<Vector2>();
+        }
     }
     void OnJump(InputValue value)
     {
-        if (value.isPressed && playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (value.isPressed && playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && isAlive)
         {
-            playerRigidBody.velocity += new Vector2(0f, jumpSpeed);
+            playerRigidBody.velocity += new Vector2(0f, jumpForce);
         }
     }
     void Run()
     {
         Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, playerRigidBody.velocity.y);
         playerRigidBody.velocity = playerVelocity;
+
         playerHasVerticalVelocity = Mathf.Abs(playerRigidBody.velocity.x) > Mathf.Epsilon;
         playerAnimator.SetBool("IsRunning", playerHasVerticalVelocity);
+
+        if (moveInput.x > 0 && !charLookingRight)
+        {
+            FlipSprite();
+        }
+        else if (moveInput.x < 0 && charLookingRight)
+        {
+            FlipSprite();
+        }
     }
     void Climbing()
     {
@@ -71,11 +90,21 @@ public class PlayerMovement : MonoBehaviour
     }
     void FlipSprite()
     {
-        playerHasVerticalVelocity = Mathf.Abs(playerRigidBody.velocity.x) > Mathf.Epsilon;
-        if (playerHasVerticalVelocity)
+        charLookingRight = !charLookingRight;
+        transform.Rotate(0f, 180f, 0f);
+    }
+    void Die()
+    {
+        if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
         {
-            transform.localScale = new Vector2(Mathf.Sign(playerRigidBody.velocity.x), 1f);
+            isAlive = false;
+
+            playerRigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+            playerRigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            playerAnimator.SetTrigger("Death");
+
+            playerRigidBody.velocity = deadthKick;
         }
     }
-
 }
