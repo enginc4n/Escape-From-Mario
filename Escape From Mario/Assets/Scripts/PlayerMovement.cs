@@ -6,8 +6,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     bool playerHasVerticalVelocity;
-    bool charLookingRight = true;
     bool isAlive = true;
+    bool isClimbing;
     float gravityScaleOnStart;
     Vector2 moveInput;
     Rigidbody2D playerRigidBody;
@@ -20,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpForce = 2f;
     [SerializeField] float climbSpeed = 5f;
     [SerializeField] Vector2 deadthKick;
+    [Header("Bow")]
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform bow;
 
     private void Awake()
     {
@@ -37,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
             Run();
             Climbing();
             Die();
+            FlipSprite();
         }
     }
     void OnMove(InputValue value)
@@ -48,9 +52,17 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnJump(InputValue value)
     {
-        if (value.isPressed && playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && isAlive)
+        if (value.isPressed && playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platform")) && isAlive)
         {
             playerRigidBody.velocity += new Vector2(0f, jumpForce);
+        }
+    }
+
+    void OnFire(InputValue value)
+    {
+        if (value.isPressed && isAlive && !isClimbing)
+        {
+            Instantiate(bullet, bow.position, Quaternion.Euler(0, 0, -90));
         }
     }
     void Run()
@@ -61,14 +73,7 @@ public class PlayerMovement : MonoBehaviour
         playerHasVerticalVelocity = Mathf.Abs(playerRigidBody.velocity.x) > Mathf.Epsilon;
         playerAnimator.SetBool("IsRunning", playerHasVerticalVelocity);
 
-        if (moveInput.x > 0 && !charLookingRight)
-        {
-            FlipSprite();
-        }
-        else if (moveInput.x < 0 && charLookingRight)
-        {
-            FlipSprite();
-        }
+
     }
     void Climbing()
     {
@@ -80,22 +85,29 @@ public class PlayerMovement : MonoBehaviour
 
             playerAnimator.SetBool("IsClimbing", true);
             playerAnimator.SetFloat("HasVelocityOnY", Mathf.Abs(playerRigidBody.velocity.y));
+            isClimbing = true;
         }
 
         else
         {
             playerRigidBody.gravityScale = gravityScaleOnStart;
             playerAnimator.SetBool("IsClimbing", false);
+            isClimbing = false;
         }
     }
     void FlipSprite()
     {
-        charLookingRight = !charLookingRight;
-        transform.Rotate(0f, 180f, 0f);
+        bool playerHasHorizontalSpeed = Mathf.Abs(playerRigidBody.velocity.x) > Mathf.Epsilon;
+
+        if (playerHasHorizontalSpeed)
+        {
+            transform.localScale = new Vector2(Mathf.Sign(playerRigidBody.velocity.x), 1f);
+        }
+
     }
     void Die()
     {
-        if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
+        if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy", "Hazards")))
         {
             isAlive = false;
 

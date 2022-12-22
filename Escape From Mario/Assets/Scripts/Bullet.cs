@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Rigidbody2D bulletRigidBody;
+    PlayerMovement playerMovement;
+
+    float xBulletSpeed;
+    [Header("Settings")]
+    [SerializeField] float bulletSpeed = 15f;
+    void Awake()
+    {
+        bulletRigidBody = GetComponent<Rigidbody2D>();
+        playerMovement = FindObjectOfType<PlayerMovement>();
+    }
     void Start()
     {
-        
+        xBulletSpeed = bulletSpeed * playerMovement.transform.localScale.x;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        bulletRigidBody.velocity = new Vector2(xBulletSpeed, 0f);
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Enemy")
+        {
+            Destroy(other.gameObject);
+        }
+        Destroy(gameObject);
+    }
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        Destroy(gameObject);
     }
 }

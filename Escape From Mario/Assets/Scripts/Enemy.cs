@@ -25,6 +25,6 @@ public class Enemy : MonoBehaviour
     }
     void FlipSprite()
     {
-        transform.Rotate(0f, 180f, 0f);
+        transform.localScale = new Vector2(-(Mathf.Sign(enemyRigidBody.velocity.x)), 1f);
     }
 }
