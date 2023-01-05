@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Exit
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Enemy
   - Hazards
   - Bow
-  - 
+  - Exit
   - 
   - 
   - 
@@ -56,6 +57,9 @@ TagManager:
     locked: 0
   - name: Hazards
     uniqueID: 3560919175
+    locked: 0
+  - name: Exit
+    uniqueID: 3292251695
     locked: 0
   - name: Enemy
     uniqueID: 3209589427

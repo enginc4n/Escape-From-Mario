@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    bool playerHasVerticalVelocity;
+    bool playerHasHorizontalSpeed;
+    bool playerHasVerticalSpeed;
     bool isAlive = true;
     bool isClimbing;
-    float gravityScaleOnStart;
+    float gravityScaleAtStart;
     Vector2 moveInput;
     Rigidbody2D playerRigidBody;
     Animator playerAnimator;
@@ -20,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpForce = 2f;
     [SerializeField] float climbSpeed = 5f;
     [SerializeField] Vector2 deadthKick;
+
     [Header("Bow")]
     [SerializeField] GameObject bullet;
     [SerializeField] Transform bow;
@@ -30,8 +32,7 @@ public class PlayerMovement : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         playerBodyCollider = GetComponentInChildren<CapsuleCollider2D>();
         playerFeetCollider = GetComponentInChildren<BoxCollider2D>();
-        gravityScaleOnStart = playerRigidBody.gravityScale;
-
+        gravityScaleAtStart = playerRigidBody.gravityScale;
     }
     void Update()
     {
@@ -50,6 +51,15 @@ public class PlayerMovement : MonoBehaviour
             moveInput = value.Get<Vector2>();
         }
     }
+    void Run()
+    {
+        Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, playerRigidBody.velocity.y);
+        playerRigidBody.velocity = playerVelocity;
+
+        playerHasHorizontalSpeed = Mathf.Abs(playerRigidBody.velocity.x) > Mathf.Epsilon;
+        playerAnimator.SetBool("IsRunning", playerHasHorizontalSpeed);
+
+    }
     void OnJump(InputValue value)
     {
         if (value.isPressed && playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platform")) && isAlive)
@@ -60,44 +70,31 @@ public class PlayerMovement : MonoBehaviour
 
     void OnFire(InputValue value)
     {
-        if (value.isPressed && isAlive && !isClimbing)
+        if (value.isPressed && isAlive && !playerHasHorizontalSpeed && !playerHasVerticalSpeed)
         {
             Instantiate(bullet, bow.position, Quaternion.Euler(0, 0, -90));
+            playerAnimator.SetTrigger("Attacking");
         }
-    }
-    void Run()
-    {
-        Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, playerRigidBody.velocity.y);
-        playerRigidBody.velocity = playerVelocity;
-
-        playerHasVerticalVelocity = Mathf.Abs(playerRigidBody.velocity.x) > Mathf.Epsilon;
-        playerAnimator.SetBool("IsRunning", playerHasVerticalVelocity);
-
-
     }
     void Climbing()
     {
-        if (playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
+        if (!playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
         {
-            Vector2 climbVelocity = new Vector2(playerRigidBody.velocity.x, moveInput.y * climbSpeed);
-            playerRigidBody.velocity = climbVelocity;
-            playerRigidBody.gravityScale = 0f;
-
-            playerAnimator.SetBool("IsClimbing", true);
-            playerAnimator.SetFloat("HasVelocityOnY", Mathf.Abs(playerRigidBody.velocity.y));
-            isClimbing = true;
-        }
-
-        else
-        {
-            playerRigidBody.gravityScale = gravityScaleOnStart;
+            playerRigidBody.gravityScale = gravityScaleAtStart;
             playerAnimator.SetBool("IsClimbing", false);
-            isClimbing = false;
+            playerHasVerticalSpeed = Mathf.Abs(playerRigidBody.velocity.y) > Mathf.Epsilon;
+            return;
         }
+        Vector2 climbVelocity = new Vector2(playerRigidBody.velocity.x, moveInput.y * climbSpeed);
+        playerRigidBody.velocity = climbVelocity;
+        playerRigidBody.gravityScale = 0f;
+
+        playerAnimator.SetBool("IsClimbing", playerHasVerticalSpeed);
+        playerAnimator.SetFloat("HasVelocityOnY", Mathf.Abs(playerRigidBody.velocity.y));
     }
     void FlipSprite()
     {
-        bool playerHasHorizontalSpeed = Mathf.Abs(playerRigidBody.velocity.x) > Mathf.Epsilon;
+        playerHasHorizontalSpeed = Mathf.Abs(playerRigidBody.velocity.x) > Mathf.Epsilon;
 
         if (playerHasHorizontalSpeed)
         {
@@ -119,4 +116,5 @@ public class PlayerMovement : MonoBehaviour
             playerRigidBody.velocity = deadthKick;
         }
     }
+
 }
