@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
     bool playerHasHorizontalSpeed;
     bool playerHasVerticalSpeed;
     bool isAlive = true;
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     Animator playerAnimator;
     CapsuleCollider2D playerBodyCollider;
     BoxCollider2D playerFeetCollider;
+    AudioManager audioManager;
 
     [Header("Settings")]
     [SerializeField] float runSpeed = 5f;
@@ -28,11 +30,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         playerBodyCollider = GetComponentInChildren<CapsuleCollider2D>();
         playerFeetCollider = GetComponentInChildren<BoxCollider2D>();
         gravityScaleAtStart = playerRigidBody.gravityScale;
+
     }
     void Update()
     {
@@ -65,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
         if (value.isPressed && playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platform")) && isAlive)
         {
             playerRigidBody.velocity += new Vector2(0f, jumpForce);
+            audioManager.PlayJumpSound();
         }
     }
 
@@ -74,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Instantiate(bullet, bow.position, Quaternion.Euler(0, 0, -90));
             playerAnimator.SetTrigger("Attacking");
+            audioManager.playArrowSound();
         }
     }
     void Climbing()
@@ -81,15 +87,15 @@ public class PlayerMovement : MonoBehaviour
         if (!playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
         {
             playerRigidBody.gravityScale = gravityScaleAtStart;
-            playerAnimator.SetBool("IsClimbing", false);
             playerHasVerticalSpeed = Mathf.Abs(playerRigidBody.velocity.y) > Mathf.Epsilon;
+            playerAnimator.SetBool("IsClimbing", false);
             return;
         }
         Vector2 climbVelocity = new Vector2(playerRigidBody.velocity.x, moveInput.y * climbSpeed);
         playerRigidBody.velocity = climbVelocity;
         playerRigidBody.gravityScale = 0f;
 
-        playerAnimator.SetBool("IsClimbing", playerHasVerticalSpeed);
+        playerAnimator.SetBool("IsClimbing", true);
         playerAnimator.SetFloat("HasVelocityOnY", Mathf.Abs(playerRigidBody.velocity.y));
     }
     void FlipSprite()
@@ -114,6 +120,7 @@ public class PlayerMovement : MonoBehaviour
             playerAnimator.SetTrigger("Death");
 
             playerRigidBody.velocity = deadthKick;
+            FindObjectOfType<GameManager>().ProcessPlayerDeath();
         }
     }
 

@@ -90,7 +90,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: c551a7345c25c884d9374fe7878e5aa7, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.03387025, y: -0.46359873}
@@ -184,7 +184,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 548293677
-  m_SortingLayer: 8
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 1320270743, guid: 13ca4e3e527d7bb4a81d4c4edcf72fda, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -284,7 +284,7 @@ MonoBehaviour:
   jumpForce: 10
   climbSpeed: 5
   deadthKick: {x: 0, y: 15}
-  bullet: {fileID: 5710948631482581646, guid: 2fd80e86678946b4991df31344537225, type: 3}
+  bullet: {fileID: 2193847109758913571, guid: 71fb3eb35c4a72649bf1d8db240af88d, type: 3}
   bow: {fileID: 6615917001143899261}
 --- !u!1 &8203855339197953251
 GameObject:

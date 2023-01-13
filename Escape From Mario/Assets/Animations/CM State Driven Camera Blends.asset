@@ -35,8 +35,8 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: '**ANY CAMERA**'
-    m_To: Climb Camera
+  - m_From: Climb Camera
+    m_To: '**ANY CAMERA**'
     m_Blend:
       m_Style: 1
       m_Time: 1
@@ -46,8 +46,8 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: Climb Camera
-    m_To: '**ANY CAMERA**'
+  - m_From: '**ANY CAMERA**'
+    m_To: Climb Camera
     m_Blend:
       m_Style: 1
       m_Time: 1

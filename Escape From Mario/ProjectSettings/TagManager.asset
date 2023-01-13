@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Exit
+  - Bow
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Hazards
   - Bow
   - Exit
-  - 
+  - Collectable
   - 
   - 
   - 
@@ -52,14 +53,11 @@ TagManager:
   - name: Platform
     uniqueID: 1967254003
     locked: 0
-  - name: Ladder
-    uniqueID: 2535853475
-    locked: 0
   - name: Hazards
     uniqueID: 3560919175
     locked: 0
-  - name: Exit
-    uniqueID: 3292251695
+  - name: Interactable
+    uniqueID: 2535853475
     locked: 0
   - name: Enemy
     uniqueID: 3209589427

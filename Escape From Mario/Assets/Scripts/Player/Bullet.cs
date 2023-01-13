@@ -6,7 +6,9 @@ public class Bullet : MonoBehaviour
 {
     Rigidbody2D bulletRigidBody;
     PlayerMovement playerMovement;
-
+    Enemy enemy;
+    [Header("Refrences")]
+    [SerializeField] ParticleSystem deathParticle;
     float xBulletSpeed;
     [Header("Settings")]
     [SerializeField] float bulletSpeed = 15f;
@@ -14,6 +16,7 @@ public class Bullet : MonoBehaviour
     {
         bulletRigidBody = GetComponent<Rigidbody2D>();
         playerMovement = FindObjectOfType<PlayerMovement>();
+        enemy = FindObjectOfType<Enemy>();
     }
     void Start()
     {
@@ -26,14 +29,11 @@ public class Bullet : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Enemy")
+        if (other.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject);
+            deathParticle.Play();
         }
         Destroy(gameObject);
     }
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        Destroy(gameObject);
-    }
+
 }
