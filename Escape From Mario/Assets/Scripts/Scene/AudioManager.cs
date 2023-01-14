@@ -9,25 +9,11 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip coinPickUpSound;
     [SerializeField] AudioClip arrowSound;
     [SerializeField] AudioClip jumpSound;
+    [SerializeField] AudioClip bounceSound;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-
-        int numberOfAudioManager = FindObjectsOfType<GameManager>().Length;
-
-        if (numberOfAudioManager > 1)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            DontDestroyOnLoad(gameObject);
-        }
-    }
-    public void ResetAudioManager()
-    {
-        Destroy(gameObject);
     }
     public void PlayCoinPickUP()
     {
@@ -40,5 +26,9 @@ public class AudioManager : MonoBehaviour
     public void PlayJumpSound()
     {
         audioSource.PlayOneShot(jumpSound);
+    }
+    public void PlayBounceJump()
+    {
+        audioSource.PlayOneShot(bounceSound, 0.5f);
     }
 }

@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
             Climbing();
             Die();
             FlipSprite();
+            Bounce();
         }
     }
     void OnMove(InputValue value)
@@ -121,6 +122,13 @@ public class PlayerMovement : MonoBehaviour
 
             playerRigidBody.velocity = deadthKick;
             FindObjectOfType<GameManager>().ProcessPlayerDeath();
+        }
+    }
+    void Bounce()
+    {
+        if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Bouncing")))
+        {
+            audioManager.PlayBounceJump();
         }
     }
 

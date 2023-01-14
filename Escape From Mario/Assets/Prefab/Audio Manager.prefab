@@ -48,6 +48,7 @@ MonoBehaviour:
   coinPickUpSound: {fileID: 8300000, guid: 5a32083bf91dd14479cb7efb015a449d, type: 3}
   arrowSound: {fileID: 8300000, guid: aff91d30de78bd749a20e940f3f7d66f, type: 3}
   jumpSound: {fileID: 8300000, guid: 8ae4290fd51d0c047b0243b77c639c1b, type: 3}
+  bounceSound: {fileID: 8300000, guid: 5724ea30c2a5ef74387dbefef32409b2, type: 3}
 --- !u!82 &2658641338307612054
 AudioSource:
   m_ObjectHideFlags: 0

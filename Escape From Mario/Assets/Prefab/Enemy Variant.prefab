@@ -19,6 +19,10 @@ PrefabInstance:
       propertyPath: spawnCoin
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3255229643006737740, guid: 19aa3510b9580234b87f1a1fc7fe94b9, type: 3}
+      propertyPath: deathParticle
+      value: 
+      objectReference: {fileID: 1994517283758391889, guid: ab066bcbce87c7a4c8ce20c012d6d772, type: 3}
     - target: {fileID: 3255229643006737741, guid: 19aa3510b9580234b87f1a1fc7fe94b9, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] ParticleSystem deathParticle;
 
     public bool spawnCoin;
-    bool isHitted;
+
     void Awake()
     {
         enemyRigidBody = GetComponent<Rigidbody2D>();
@@ -20,15 +20,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (!isHitted)
-        {
-            enemyRigidBody.velocity = new Vector2(moveSpeed, 0f);
-        }
-        else
-        {
-            enemyRigidBody.velocity = new Vector2(0, 0f);
-        }
-
+        enemyRigidBody.velocity = new Vector2(moveSpeed, 0f);
     }
     void OnTriggerExit2D(Collider2D other)
     {
@@ -38,22 +30,19 @@ public class Enemy : MonoBehaviour
     }
     void FlipSprite()
     {
-        if (!isHitted)
-        {
-            transform.localScale = new Vector2(-(Mathf.Sign(enemyRigidBody.velocity.x)), 1f);
-        }
+        transform.localScale = new Vector2(-(Mathf.Sign(enemyRigidBody.velocity.x)), 1f);
+
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Bow")
+        if (other.CompareTag("Bow"))
         {
-            isHitted = true;
-            deathParticle.Play();
+            Instantiate(deathParticle, other.transform.position, Quaternion.Euler(-90, 0, 0));
             if (spawnCoin)
             {
                 Instantiate(coin, other.transform.position, Quaternion.identity);
             }
-            Destroy(gameObject, 2);
+            Destroy(gameObject);
         }
     }
 }
