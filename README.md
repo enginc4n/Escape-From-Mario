@@ -15,16 +15,19 @@ You can play this game from the itch.io link (the link is in the ***My Links*** 
 ## ***FAQ***
  **What is the aim of game?**
 
- You have to escape from mario prission and try to avoid from enemies and water.
+ - You have to escape from mario prission and try to avoid from enemies and water.
  
  **How do we play?**
  
- You have to use your *"W,A,S,D"* keys to move,and
- you have use *"Space Keyword"* to shoot the enemies.You can not move or jump while shooting.
+- You have to use your *"A,D"* keys to *MOVE*.
+ 
+- You have use *"Space Keyword"* to *JUMP*. 
+ 
+- You have to use *"Left Mouse Button"* to *SHOOT* enemies and you can not move or jump while shooting.
 
  **Why do we collect golds?**
  
- In the near future i will add market system and you will be able to buy some speacial items
+ - In the near future i will add market system and you will be able to buy some speacial items
  or skills for your character.
  
 
