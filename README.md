@@ -20,7 +20,7 @@ You can play this game from the itch.io link (the link is in the ***My Links*** 
  **How do we play?**
  
  You have to use your *"W,A,S,D"* keys to move,and
- you have use *"Space Keyword"* to shoot the enemies.
+ you have use *"Space Keyword"* to shoot the enemies.You can not move or jump while shooting.
 
  **Why do we collect golds?**
  
@@ -32,5 +32,4 @@ You can play this game from the itch.io link (the link is in the ***My Links*** 
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/enginc4n/)
 [![itchio](https://img.shields.io/badge/itch.io-escape%20from%20mario-blueviolet?style=plastic&logo=appveyor)](https://enginc4n.itch.io/escape-from-mario)
-
 
