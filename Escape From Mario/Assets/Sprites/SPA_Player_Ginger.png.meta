@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -748,7 +748,6 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Climb_2: -140738148
       SPA_Player_Ginger_3: -753232936
       Run_8: 1439866049
       SPA_Player_Ginger_1: 2012759531
@@ -775,6 +774,7 @@ TextureImporter:
       Run_4: -1886245114
       SPA_Player_Ginger_11: -161273979
       Run_10: -2002350533
+      Climb_2: -140738148
       Run_9: 1818308071
       Run_5: -1618128106
   spritePackingTag: 
