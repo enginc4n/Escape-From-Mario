@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
     Rigidbody2D bulletRigidBody;
     PlayerMovement playerMovement;
 
-    float xBulletSpeed;
     [Header("Settings")]
     [SerializeField] float bulletSpeed = 15f;
     void Awake()
@@ -17,13 +16,11 @@ public class Bullet : MonoBehaviour
     }
     void Start()
     {
-        xBulletSpeed = bulletSpeed * playerMovement.transform.localScale.x;
-    }
-
-    void Update()
-    {
+        float xBulletSpeed = bulletSpeed * playerMovement.transform.localScale.x;
         bulletRigidBody.velocity = new Vector2(xBulletSpeed, 0f);
     }
+
+
     void OnTriggerEnter2D(Collider2D other)
     {
         Destroy(gameObject);
