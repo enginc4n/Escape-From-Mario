@@ -33,6 +33,8 @@ You can play this game from the itch.io link (the link is in the ***My Links*** 
 
 ## ***🔗 My Links***
 
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/enginc4n/)
-[![itchio](https://img.shields.io/badge/itch.io-escape%20from%20mario-blueviolet?style=plastic&logo=appveyor)](https://enginc4n.itch.io/escape-from-mario)
+<a href="mailto:altinozengincan@gmail.com" target="_blank">
+<img src=https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white alt=gmail style="margin-bottom: 5px;"height="25" />
+<a href="https://enginc4n.itch.io/escape-from-mario" target="_blank">
+<img src=https://img.shields.io/badge/itchio-enginc4n-critical?logo=Itch.io height="25">
 
