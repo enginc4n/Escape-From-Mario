@@ -4,7 +4,7 @@
 It's 2D platform game
 
 
-![Logo](https://img.itch.zone/aW1hZ2UvMTg4MzA1Mi8xMTA2NDA0MS5wbmc=/347x500/89NljA.png)
+![Logo](https://img.itch.zone/aW1hZ2UvMTg4MzA1Mi8xMjIyNTEzMy5wbmc=/250x600/LKvkRX.png)
 
 
 ## ***Appendix***
