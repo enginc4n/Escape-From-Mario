@@ -37,10 +37,10 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Bow"))
         {
-            Instantiate(deathParticle, other.transform.position, Quaternion.Euler(-90, 0, 0));
+            Instantiate(deathParticle, transform.position, Quaternion.Euler(-90, 0, 0));
             if (spawnCoin)
             {
-                Instantiate(coin, other.transform.position, Quaternion.identity);
+                Instantiate(coin, transform.position, Quaternion.identity);
             }
             Destroy(gameObject);
         }
