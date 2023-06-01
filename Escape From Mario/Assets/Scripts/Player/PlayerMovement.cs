@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnFire(InputValue value)
     {
-        if (value.isPressed && isAlive && !playerHasHorizontalSpeed && !playerHasVerticalSpeed)
+        if (value.isPressed && isAlive && playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platform")))
         {
             Instantiate(bullet, bow.position, Quaternion.Euler(0, 0, -90));
             playerAnimator.SetTrigger("Attacking");

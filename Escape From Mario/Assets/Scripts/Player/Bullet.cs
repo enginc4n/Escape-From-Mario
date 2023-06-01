@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    Rigidbody2D bulletRigidBody;
+    Rigidbody2D bulletRigidBody;  
     PlayerMovement playerMovement;
 
     [Header("Settings")]
@@ -19,11 +19,10 @@ public class Bullet : MonoBehaviour
         float xBulletSpeed = bulletSpeed * playerMovement.transform.localScale.x;
         bulletRigidBody.velocity = new Vector2(xBulletSpeed, 0f);
     }
-
-
+    
+    
     void OnTriggerEnter2D(Collider2D other)
     {
         Destroy(gameObject);
     }
-
 }
